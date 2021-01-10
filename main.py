@@ -14,7 +14,23 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-  if message.content.startswith("!filmy "):
+  if message.content.startswith("!filmy help"):
+    embed = discord.Embed(title="Filmy Bot Help Page", colour=discord.Colour(0x5da26c), description="Filmy")
+
+    embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/796361369149898773/c777bcb8d83b883e3326b60de539d6dc.png?size=512")
+    embed.set_footer(text="Filmy Bot by elio 27#0601", icon_url="https://cdn.discordapp.com/avatars/424188671332319233/3f081a930ca4bd8fd19f46a374d1ca86.png")
+
+    embed.add_field(name="!filmy {movie name}", value="Return an embed with a lot of informations about the movie, like his poster, synopsis, release date etc...")
+    embed.add_field(name="!filmy invite", value="Return the [link](https://bit.ly/rh-bot) to invite me in your server !")
+    embed.add_field(name="!filmy help", value="Return the page you are reading\n\n")
+    embed.add_field(name="Other informations:", value="[Source Code on Github](https://github.com/elio27/filmybot)")
+
+    await message.channel.send(embed=embed)
+
+  elif message.content.startswith("!filmy invite"):
+    await message.channel.send("https://bit.ly/filmy-bot")
+
+  elif message.content.startswith("!filmy "):
     ex = "(?<=filmy ).*"
     name = re.findall(ex, message.content)[0]
     search = tmdb.Search()
