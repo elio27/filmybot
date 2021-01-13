@@ -1,8 +1,7 @@
 import discord
 import tmdbsimple as tmdb
-import urllib.parse
 import os, re, datetime
-from keep_alive import keep_alive
+# from keep_alive import keep_alive -> trick to host on repl.it
 
 tmdb.API_KEY = os.getenv("API")
 
@@ -21,9 +20,9 @@ async def on_message(message):
     embed.set_footer(text="Filmy Bot by elio 27#0601", icon_url="https://cdn.discordapp.com/avatars/424188671332319233/3f081a930ca4bd8fd19f46a374d1ca86.png")
 
     embed.add_field(name="!filmy {movie name}", value="Return an embed with a lot of informations about the movie, like his poster, synopsis, release date etc...")
-    embed.add_field(name="!filmy invite", value="Return the [link](https://bit.ly/rh-bot) to invite me in your server !")
+    embed.add_field(name="!filmy invite", value="Return the [link](https://bit.ly/filmy-bot) to invite me in your server !")
     embed.add_field(name="!filmy help", value="Return the page you are reading\n\n")
-    embed.add_field(name="Other informations:", value="[Source Code on Github](https://github.com/elio27/filmybot)")
+    embed.add_field(name="Other informations:", value="[Source Code on Github](https://github.com/elio27/filmybot)\n[Vote](https://top.gg/bot/796361369149898773)")
 
     await message.channel.send(embed=embed)
 
@@ -52,12 +51,29 @@ async def on_message(message):
     date = movie.release_date.split("-")
     date = f"{date[1]}/{date[2]}/{date[0]}"
 
-    embed.add_field(name="Informations", value=f"Release date: {date}\nProduced by: {movie.production_companies[0]['name']}\nDuration: {int(movie.runtime/60)}h{movie.runtime%60}min")
+    base_average = movie.vote_average
+    average = round(base_average)
+
+    if base_average - int(base_average) <= 0.5:
+      if round(base_average + 0.25) == round(average + 0.5):
+        note = average + 0.5
+      else:
+        note = average
+    else:
+      if round(base_average - 0.25) != round(average - 0.5):
+        note = average - 0.5
+      else:
+        note = average
+    note /= 2
+
+    vote = "<:fullstar:798903898189463592>"*int(note)
+    if note - int(note) != 0:
+      vote = f"{vote}<:halfastar:798903936362610719>"
+
+    embed.add_field(name="Informations", value=f"Release date: {date}\nProduced by: {movie.production_companies[0]['name']}\nDuration: {int(movie.runtime/60)}h{movie.runtime%60}min\nViewer rating:\n{vote}")
 
     await message.channel.send(embed=embed)
-  
-  elif "<@!796361369149898773>" in message.content:
-    await message.add_reaction("<:ping:796795286995468368>")
 
-keep_alive()
+
+#keep_alive() -> the same trick to host on repl.it
 client.run(os.getenv("TOKEN"), bot=True)
