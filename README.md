@@ -9,7 +9,8 @@
 - The synopsis
 - The release date
 - The production compagny
-- And the duration
+- The duration
+- And the viewer rating !
 
 As Filmy is still in development, the list is expected to grow in the future !
 
