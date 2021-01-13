@@ -11,9 +11,12 @@
 - The production compagny
 - The duration
 - And the viewer rating !
-
 As Filmy is still in development, the list is expected to grow in the future !
 
-If you encounter any problem or bug, send me a dm (elio 27#0601) !
+### How to add filmy to my server ?
+ -> https://top.gg/bot/796361369149898773 <-
+ (If you like filmy, don't forget to leave a vote !)
 
+
+If you encounter any problem or bug, send me a dm (elio 27#0601) !
 Hope you will enjoy Filmy !
